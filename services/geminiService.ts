@@ -32,18 +32,53 @@ export const fetchTrains = async (from: string, to: string, date: string): Promi
     const prompt = `Generate a list of 5 to 8 plausible but fictional trains running from ${from} to ${to} on ${date}. Include train number, train name, departure and arrival stations/times, duration, fare, and seat availability. Ensure departure station is ${from} and arrival station is ${to}.`;
 
     try {
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: prompt,
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: responseSchema,
-                temperature: 0.7,
-            },
-        });
-        
-        const jsonText = response.text.trim();
-        const trainData = JSON.parse(jsonText);
+     
+        const trainData = [
+  {
+    "trainNumber": "12002",
+    "trainName": "Shatabdi Express",
+    "departureStation": "Bhopal (BPL)",
+    "departureTime": "14:40",
+    "arrivalStation": "New Delhi (NDLS)",
+    "arrivalTime": "22:10",
+    "duration": "7h 30m",
+    "fare": 1450.00,
+    "seatsAvailable": 78
+  },
+  {
+    "trainNumber": "22691",
+    "trainName": "Rajdhani Express",
+    "departureStation": "Bengaluru (SBC)",
+    "departureTime": "20:00",
+    "arrivalStation": "H. Nizamuddin (NZM)",
+    "arrivalTime": "05:30",
+    "duration": "33h 30m",
+    "fare": 4750.50,
+    "seatsAvailable": 15
+  },
+  {
+    "trainNumber": "12953",
+    "trainName": "August Kranti Raj",
+    "departureStation": "Mumbai Central (MMCT)",
+    "departureTime": "17:10",
+    "arrivalStation": "H. Nizamuddin (NZM)",
+    "arrivalTime": "09:43",
+    "duration": "16h 33m",
+    "fare": 2870.00,
+    "seatsAvailable": 0
+  },
+  {
+    "trainNumber": "12301",
+    "trainName": "Howrah Rajdhani",
+    "departureStation": "Howrah (HWH)",
+    "departureTime": "16:50",
+    "arrivalStation": "New Delhi (NDLS)",
+    "arrivalTime": "10:05",
+    "duration": "17h 15m",
+    "fare": 3120.00,
+    "seatsAvailable": 210
+  }
+];
 
         // Sort trains by departure time
         return trainData.sort((a: Train, b: Train) => a.departureTime.localeCompare(b.departureTime));

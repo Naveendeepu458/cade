@@ -41,17 +41,7 @@ const getTrains = async (req, res) => {
     const prompt = `Generate a list of 5 to 8 plausible but fictional trains running from ${from} to ${to} on ${date}. Include train number, train name, departure and arrival stations/times, duration, fare, and seat availability. Ensure departure station is ${from} and arrival station is ${to}.`;
 
     try {
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: prompt,
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: responseSchema,
-                temperature: 0.7,
-            },
-        });
         
-        const jsonText = response.text.trim();
         const trainData = JSON.parse(jsonText);
 
         // Sort trains by departure time
